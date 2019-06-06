@@ -23,7 +23,7 @@ def test_add_task(tok):
     print("Creating tasks..")
     import time
     start = time.time()
-    for i in range(50000):
+    for i in range(1):
         payload = {'title': 'TestTitleNew',
                    'description': 'Test1Description',
                    'user_assigned': 10715,
@@ -36,6 +36,7 @@ def test_add_task(tok):
         if r.status_code == 401:
             tok = token('https://tasks.devebs.net/api/users/token/')
             print(tok)
+
 
 
 
@@ -64,6 +65,10 @@ def test_add_task(tok):
         r = requests.put("https://tasks.devebs.net/api/task/update_status/", data=payload,
                       headers={"authorization": "Bearer " + str(tok)})
         print(r.status_code)
+        if r.status_code == 401:
+            tok = token('https://tasks.devebs.net/api/users/token/')
+            print(tok)
+
 
         payload = {"start_time": "2019-06-06T06:24:14.274Z",
                    "duration": 10}
@@ -71,6 +76,10 @@ def test_add_task(tok):
         r = requests.post("https://tasks.devebs.net/api/task/" + str(last_id-i) + "/add_log/", data=payload,
                       headers={"authorization": "Bearer " + str(tok)})
         print(r.status_code)
+        if r.status_code == 401:
+            tok = token('https://tasks.devebs.net/api/users/token/')
+            print(tok)
+
 
     end = time.time()
     print("execution time: " + str(end - start))
